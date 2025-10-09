@@ -1,6 +1,9 @@
-import { IsDateField, ToArray } from '@common/decorators';
-import { IsBooleanField } from '@common/decorators/validation/is-boolean-field.decorator';
-import { IsStringField } from '@common/decorators/validation/is-string-field.decorator';
+import {
+  IsDateField,
+  ToArray,
+  IsStringField,
+  IsBooleanField,
+} from '@common/decorators';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 

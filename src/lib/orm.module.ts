@@ -1,10 +1,9 @@
-import { BaseRepository } from '@common/database/base.repository';
-import { baseOptions } from '@common/database/orm.config';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { defineConfig } from '@mikro-orm/postgresql';
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Entities from '@entities';
+import { baseOptions, BaseRepository } from '@common/database';
 
 @Global()
 @Module({

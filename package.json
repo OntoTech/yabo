@@ -1,6 +1,6 @@
 {
   "name": "yabo",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Yet Another Bff Option",
   "author": "",
   "private": true,
@@ -27,6 +27,7 @@
     "@nestjs/core": "^11.0.1",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",
+    "helper-fns": "^2.9.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },

@@ -20,6 +20,9 @@ importers:
       '@nestjs/platform-express':
         specifier: ^11.0.1
         version: 11.1.6(@nestjs/common@11.1.6(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)
+      helper-fns:
+        specifier: ^2.9.3
+        version: 2.9.3
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -2144,6 +2147,9 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
+
+  helper-fns@2.9.3:
+    resolution: {integrity: sha512-ROEIxeENPy1deeGjx9xTIvTPTAFYHbEGl4w8OuRNqYdpkl9L1MYyueUwM2hXcx6WVswhvMZSeUaVvxZ8MUVd1g==}
 
   html-escaper@2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
@@ -5839,6 +5845,8 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+
+  helper-fns@2.9.3: {}
 
   html-escaper@2.0.2: {}
 

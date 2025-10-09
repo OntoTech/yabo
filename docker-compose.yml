@@ -1,0 +1,19 @@
+services:
+  db:
+    container_name: yabo_postgres
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - yabo_db:/var/lib/postgresql/data
+    env_file:
+      - ./env/docker.env
+    networks:
+      - yabo_network
+
+networks:
+  yabo_network:
+    driver: bridge
+
+volumes:
+  yabo_db: {}

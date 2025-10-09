@@ -11,7 +11,16 @@ import { SchemaModule } from './schema/schema.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [ApplicationModule, ApplicationTypeModule, AttributeModule, AttributeTypeModule, AuthModule, RoleModule, SchemaModule, UserModule],
+  imports: [
+    ApplicationModule,
+    ApplicationTypeModule,
+    AttributeModule,
+    AttributeTypeModule,
+    AuthModule,
+    RoleModule,
+    SchemaModule,
+    UserModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

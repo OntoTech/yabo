@@ -8,9 +8,10 @@ import { AttributeTypeModule } from './attribute-type/attribute-type.module';
 import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { SchemaModule } from './schema/schema.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [ApplicationModule, ApplicationTypeModule, AttributeModule, AttributeTypeModule, AuthModule, RoleModule, SchemaModule],
+  imports: [ApplicationModule, ApplicationTypeModule, AttributeModule, AttributeTypeModule, AuthModule, RoleModule, SchemaModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

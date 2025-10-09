@@ -9,9 +9,11 @@ import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { SchemaModule } from './schema/schema.module';
 import { UserModule } from './user/user.module';
+import { NestConfigModule } from '@lib/config/config.module';
 
 @Module({
   imports: [
+    NestConfigModule,
     ApplicationModule,
     ApplicationTypeModule,
     AttributeModule,

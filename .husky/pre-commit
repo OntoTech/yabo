@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+pnpm run pre-commit
+npm --no-git-tag-version version patch && git add ./package.json ./pnpm-lock.yaml

@@ -1,34 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { AttributeService } from './attribute.service';
 import { CreateAttributeDto } from './dto/create-attribute.dto';
 import { UpdateAttributeDto } from './dto/update-attribute.dto';
+import { GenericController } from '@common/decorators/controller.decorator';
+import { ControllerFactory } from '@lib/crud';
+import { Attribute } from '@entities';
+import { OffsetPaginationDto } from '@common/dtos';
 
-@Controller('attribute')
-export class AttributeController {
-  constructor(private readonly attributeService: AttributeService) {}
-
-  @Post()
-  create(@Body() createAttributeDto: CreateAttributeDto) {
-    return this.attributeService.create(createAttributeDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.attributeService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.attributeService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAttributeDto: UpdateAttributeDto) {
-    return this.attributeService.update(+id, updateAttributeDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.attributeService.remove(+id);
+@GenericController('attribute', false)
+export class AttributeController extends ControllerFactory<
+  Attribute,
+  OffsetPaginationDto,
+  CreateAttributeDto,
+  UpdateAttributeDto
+>(Attribute, OffsetPaginationDto, CreateAttributeDto, UpdateAttributeDto) {
+  constructor(protected service: AttributeService) {
+    super();
   }
 }

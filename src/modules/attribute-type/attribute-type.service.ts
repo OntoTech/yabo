@@ -1,26 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAttributeTypeDto } from './dto/create-attribute-type.dto';
-import { UpdateAttributeTypeDto } from './dto/update-attribute-type.dto';
+import { BaseService } from '@lib/crud';
+import { AttributeType } from '@entities';
+import { OffsetPaginationDto } from '@common/dtos';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { BaseRepository } from '@common/database';
 
 @Injectable()
-export class AttributeTypeService {
-  create(createAttributeTypeDto: CreateAttributeTypeDto) {
-    return `This action adds a new attributeType with: ${JSON.stringify(createAttributeTypeDto)}`;
-  }
+export class AttributeTypeService extends BaseService<
+  AttributeType,
+  OffsetPaginationDto
+> {
+  protected readonly queryName = 'y';
+  protected readonly searchField = 'name';
 
-  findAll() {
-    return `This action returns all attributeType`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} attributeType`;
-  }
-
-  update(id: number, updateAttributeTypeDto: UpdateAttributeTypeDto) {
-    return `This action updates a #${id} attributeType with: ${updateAttributeTypeDto}`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} attributeType`;
+  constructor(
+    @InjectRepository(AttributeType)
+    private attributeTypeRepository: BaseRepository<AttributeType>,
+  ) {
+    super(attributeTypeRepository);
   }
 }

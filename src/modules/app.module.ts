@@ -13,6 +13,8 @@ import { NestConfigModule } from '@lib/config/config.module';
 import { OrmModule } from '@lib/orm.module';
 import { UserMiddleware } from '@common/middlewares/user.middleware';
 import { NestPinoModule } from '@lib/pino/pino.module';
+import { QueryFailedFilter } from '@common/filters';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -29,7 +31,7 @@ import { NestPinoModule } from '@lib/pino/pino.module';
     UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_FILTER, useClass: QueryFailedFilter }],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

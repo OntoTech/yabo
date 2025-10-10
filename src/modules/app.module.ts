@@ -10,9 +10,11 @@ import { RoleModule } from './role/role.module';
 import { SchemaModule } from './schema/schema.module';
 import { UserModule } from './user/user.module';
 import { NestConfigModule } from '@lib/config/config.module';
+import { OrmModule } from '@lib/orm.module';
 
 @Module({
   imports: [
+    OrmModule,
     NestConfigModule,
     ApplicationModule,
     ApplicationTypeModule,

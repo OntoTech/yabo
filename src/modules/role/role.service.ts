@@ -1,26 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
+import { BaseService } from '@lib/crud';
+import { Role } from '@entities';
+import { OffsetPaginationDto } from '@common/dtos';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { BaseRepository } from '@common/database';
 
 @Injectable()
-export class RoleService {
-  create(createRoleDto: CreateRoleDto) {
-    return `This action adds a new role with: ${JSON.stringify(createRoleDto)}`;
-  }
+export class RoleService extends BaseService<Role, OffsetPaginationDto> {
+  protected readonly queryName = 'r';
+  protected readonly searchField = 'name';
 
-  findAll() {
-    return `This action returns all role`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} role`;
-  }
-
-  update(id: number, updateRoleDto: UpdateRoleDto) {
-    return `This action updates a #${id} role with: ${JSON.stringify(updateRoleDto)}`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} role`;
+  constructor(
+    @InjectRepository(Role)
+    private roleRepository: BaseRepository<Role>,
+  ) {
+    super(roleRepository);
   }
 }

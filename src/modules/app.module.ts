@@ -12,9 +12,11 @@ import { UserModule } from './user/user.module';
 import { NestConfigModule } from '@lib/config/config.module';
 import { OrmModule } from '@lib/orm.module';
 import { UserMiddleware } from '@common/middlewares/user.middleware';
+import { NestPinoModule } from '@lib/pino/pino.module';
 
 @Module({
   imports: [
+    NestPinoModule,
     OrmModule,
     NestConfigModule,
     ApplicationModule,

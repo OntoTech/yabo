@@ -1,34 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { AttributeTypeService } from './attribute-type.service';
 import { CreateAttributeTypeDto } from './dto/create-attribute-type.dto';
 import { UpdateAttributeTypeDto } from './dto/update-attribute-type.dto';
+import { GenericController } from '@common/decorators/controller.decorator';
+import { ControllerFactory } from '@lib/crud';
+import { AttributeType } from 'entities/attribute-type.entity';
+import { OffsetPaginationDto } from '@common/dtos';
 
-@Controller('attribute-type')
-export class AttributeTypeController {
-  constructor(private readonly attributeTypeService: AttributeTypeService) {}
-
-  @Post()
-  create(@Body() createAttributeTypeDto: CreateAttributeTypeDto) {
-    return this.attributeTypeService.create(createAttributeTypeDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.attributeTypeService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.attributeTypeService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAttributeTypeDto: UpdateAttributeTypeDto) {
-    return this.attributeTypeService.update(+id, updateAttributeTypeDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.attributeTypeService.remove(+id);
+@GenericController('attribute-type', false)
+export class AttributeTypeController extends ControllerFactory<
+  AttributeType,
+  OffsetPaginationDto,
+  CreateAttributeTypeDto,
+  UpdateAttributeTypeDto
+>(
+  AttributeType,
+  OffsetPaginationDto,
+  CreateAttributeTypeDto,
+  UpdateAttributeTypeDto,
+) {
+  constructor(protected service: AttributeTypeService) {
+    super();
   }
 }

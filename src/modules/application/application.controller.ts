@@ -1,34 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ApplicationService } from './application.service';
 import { CreateApplicationDto } from './dto/create-application.dto';
 import { UpdateApplicationDto } from './dto/update-application.dto';
+import { GenericController } from '@common/decorators/controller.decorator';
+import { ControllerFactory } from '@lib/crud/crud.controller';
+import { Application } from '@entities';
+import { OffsetPaginationDto } from '@common/dtos';
 
-@Controller('application')
-export class ApplicationController {
-  constructor(private readonly applicationService: ApplicationService) {}
-
-  @Post()
-  create(@Body() createApplicationDto: CreateApplicationDto) {
-    return this.applicationService.create(createApplicationDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.applicationService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.applicationService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateApplicationDto: UpdateApplicationDto) {
-    return this.applicationService.update(+id, updateApplicationDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.applicationService.remove(+id);
+@GenericController('application', false)
+export class ApplicationController extends ControllerFactory<
+  Application,
+  OffsetPaginationDto,
+  CreateApplicationDto,
+  UpdateApplicationDto
+>(
+  Application,
+  OffsetPaginationDto,
+  CreateApplicationDto,
+  UpdateApplicationDto,
+) {
+  constructor(protected service: ApplicationService) {
+    super();
   }
 }

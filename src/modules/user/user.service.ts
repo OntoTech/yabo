@@ -1,26 +1,59 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { User } from '@entities';
+import { BaseRepository } from '@common/database';
+import { BaseService } from '@lib/crud';
+import { OffsetPaginationDto } from '@common/dtos';
+import { UserInfoHeader } from '@common/@types';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
-export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return `This action adds a new user with: ${JSON.stringify(createUserDto)}`;
+export class UserService extends BaseService<User, OffsetPaginationDto> {
+  protected readonly queryName = 'u';
+  protected readonly searchField = 'username';
+
+  constructor(
+    @InjectRepository(User) private userRepository: BaseRepository<User>,
+  ) {
+    super(userRepository);
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async ensureUserExists(userInfoHeader: UserInfoHeader) {
+    const user = await this.userRepository.findOne(
+      {
+        objectGUID: userInfoHeader.objectGUID,
+      },
+      { populate: ['roles'] },
+    );
+
+    if (user) {
+      return user;
+    }
+
+    return await lastValueFrom(this.createUserFromHeaders(userInfoHeader));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+  createUserFromHeaders(userInfoHeader: UserInfoHeader) {
+    const {
+      email,
+      logonname: username,
+      firstname: firstName,
+      middle_name: middleName,
+      family_name: familyName,
+      objectGUID,
+      uid,
+      sub,
+    } = userInfoHeader;
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user with: ${JSON.stringify(updateUserDto)}`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.create({
+      objectGUID,
+      email,
+      username,
+      firstName,
+      middleName,
+      familyName,
+      uid,
+      sub,
+    });
   }
 }

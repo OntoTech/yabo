@@ -1,26 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreateApplicationTypeDto } from './dto/create-application-type.dto';
-import { UpdateApplicationTypeDto } from './dto/update-application-type.dto';
+import { BaseService } from '@lib/crud';
+import { ApplicationType } from '@entities';
+import { OffsetPaginationDto } from '@common/dtos';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { BaseRepository } from '@common/database';
 
 @Injectable()
-export class ApplicationTypeService {
-  create(createApplicationTypeDto: CreateApplicationTypeDto) {
-    return `This action adds a new application with: ${JSON.stringify(createApplicationTypeDto)}`;
-  }
+export class ApplicationTypeService extends BaseService<
+  ApplicationType,
+  OffsetPaginationDto
+> {
+  protected readonly queryName = 'e';
+  protected readonly searchField = 'name';
 
-  findAll() {
-    return `This action returns all applicationType`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} applicationType`;
-  }
-
-  update(id: number, updateApplicationTypeDto: UpdateApplicationTypeDto) {
-    return `This action updates a #${id} application with: ${JSON.stringify(updateApplicationTypeDto)}`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} applicationType`;
+  constructor(
+    @InjectRepository(ApplicationType)
+    private applicationTypeRepository: BaseRepository<ApplicationType>,
+  ) {
+    super(applicationTypeRepository);
   }
 }

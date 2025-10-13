@@ -23,25 +23,27 @@ export const pinoConfig = (): Params => {
       },
       timestamp: () => `,"time":"${new Date(Date.now()).toISOString()}"`,
       // TODO: refactor this
-      // customProps: (_requser, _response) => ({
-      //   context: 'HTTP',
-      // }),
-      // serializers: {
-      //   req(request: {
-      //     body: Record<string, any>;
-      //     raw: {
-      //       body: Record<string, any>;
-      //     };
-      //   }) {
-      //     request.body = request.raw.body;
+      // start
+      customProps: (_requser, _response) => ({
+        context: 'HTTP',
+      }),
+      serializers: {
+        req(request: {
+          body: Record<string, any>;
+          raw: {
+            body: Record<string, any>;
+          };
+        }) {
+          request.body = request.raw.body;
 
-      //     return request;
-      //   },
-      // },
-      // redact: {
-      //   paths: redactFields,
-      //   censor: '**SENSITIVE INFO**',
-      // },
+          return request;
+        },
+      },
+      redact: {
+        paths: redactFields,
+        censor: '**SENSITIVE INFO**',
+      },
+      // end
       transport: HelperUtils.isProd()
         ? undefined
         : {

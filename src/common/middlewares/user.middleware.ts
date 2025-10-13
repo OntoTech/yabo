@@ -29,11 +29,10 @@ export class UserMiddleware implements NestMiddleware {
       const adminList = this.configService.get('app').adminList.split(',');
       const managerList = this.configService.get('app').managerList.split(',');
 
-      req['user'] = {
-        ...user,
-        isAdmin: adminList.includes(user.username),
-        isManager: managerList.includes(user.username),
-      };
+      user.isAdmin = adminList.includes(user.username);
+      user.isManager = managerList.includes(user.username);
+
+      req['user'] = user;
     }
 
     next();

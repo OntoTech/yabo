@@ -12,6 +12,9 @@ export const appConfigValidationSchema = {
     .valid(...APP_LOGLEVELS)
     .required(),
   APP_NAME: Joi.string().required(),
+  APP_USER_HEADER: Joi.string().required(),
+  APP_ADMIN_LIST: Joi.string().required(),
+  APP_MANAGER_LIST: Joi.string().required(),
 };
 
 export const app = registerAs('app', () => ({
@@ -20,4 +23,7 @@ export const app = registerAs('app', () => ({
   env: process.env.NODE_ENV,
   logLevel: process.env.APP_LOG_LEVEL,
   name: process.env.APP_NAME,
+  userHeader: process.env.APP_USER_HEADER,
+  adminList: process.env.APP_ADMIN_LIST,
+  managerList: process.env.APP_MANAGER_LIST,
 }));

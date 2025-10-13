@@ -1,4 +1,4 @@
-export enum ROLES {
+export enum PERMISIONS {
   ADMIN = 'ADMIN',
   MANAGER = 'MANAGER',
   AUTHOR = 'AUTHOR',

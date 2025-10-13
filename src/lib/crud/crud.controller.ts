@@ -2,6 +2,7 @@ import {
   CreateEntityType,
   Crud,
   PaginationResponse,
+  PERMISIONS,
   UpdateEntityType,
 } from '@common/@types';
 import { BaseEntity } from '@common/database';
@@ -28,13 +29,14 @@ import {
   SwaggerResponse,
   ApiPaginatedResponse,
   CurrentUser,
+  Permissions,
 } from '@common/decorators';
 import { Observable } from 'rxjs';
 import { User } from '@entities';
 import { ApiExcludeEndpoint, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
 import { OffsetPaginationDto } from '@common/dtos';
-import { UserGuard } from '@common/guards';
+import { PermissionsGuard, UserGuard } from '@common/guards';
 
 @Injectable()
 export class AbstractValidationPipe extends ValidationPipe {
@@ -146,9 +148,9 @@ export function ControllerFactory<
       response: updateDto,
     })
     @UsePipes(createPipe)
-    @UseGuards(UserGuard)
+    @UseGuards(UserGuard, PermissionsGuard)
+    @Permissions([PERMISIONS.ADMIN, PERMISIONS.MANAGER])
     create(@Body() body: C, @CurrentUser() user?: User): Observable<T> {
-      this.logger.debug(`Creating item for user ${user?.id}`);
       return this.service.create(body, user);
     }
 
@@ -161,11 +163,12 @@ export function ControllerFactory<
     })
     @UsePipes(updatePipe)
     @Patch(':id')
+    @UseGuards(UserGuard, PermissionsGuard)
+    @Permissions([PERMISIONS.ADMIN, PERMISIONS.MANAGER, PERMISIONS.AUTHOR])
     update(
       @Param('id', ParseIntPipe) id: number,
       @Body() body: U,
     ): Observable<T> {
-      this.logger.debug(`Updating item: ${JSON.stringify({ id, body })}`);
       return this.service.update(id, body);
     }
 
@@ -176,6 +179,8 @@ export function ControllerFactory<
       response: updateDto,
     })
     @Delete(':id')
+    @UseGuards(UserGuard, PermissionsGuard)
+    @Permissions([PERMISIONS.ADMIN])
     remove(@Param('id', ParseIntPipe) id: number): Observable<T> {
       return this.service.remove(id);
     }

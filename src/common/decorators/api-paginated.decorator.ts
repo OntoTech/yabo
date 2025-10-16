@@ -12,10 +12,10 @@ import {
 
 export function ApiPaginatedResponse<TModel extends Type>(model: TModel) {
   return applyDecorators(
-    ApiOperation({ summary: `${model.name.toLowerCase()} list` }),
+    ApiOperation({ summary: `Get ${model.name} list` }),
     ApiExtraModels(CursorPaginationResponse, OffsetPaginationResponse, model),
     ApiOkResponse({
-      description: `Successfully received ${model.name.toLowerCase()} list`,
+      description: `Successfully received ${model.name} list`,
       schema: {
         oneOf: [
           {

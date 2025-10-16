@@ -20,7 +20,7 @@ export class OffsetMeta {
   readonly hasPreviousPage: boolean;
 
   @ApiProperty()
-  readonly hadNextPage: boolean;
+  readonly hasNextPage: boolean;
 
   constructor({
     pageOptionsDto,
@@ -34,7 +34,7 @@ export class OffsetMeta {
     this.itemCount = itemCount;
     this.pageCount = Math.ceil(this.itemCount / this.limit);
     this.hasPreviousPage = this.page > 1;
-    this.hadNextPage = this.page < this.pageCount;
+    this.hasNextPage = this.page < this.pageCount;
   }
 }
 

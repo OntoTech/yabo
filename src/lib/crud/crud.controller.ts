@@ -110,8 +110,8 @@ export function ControllerFactory<
 
     @Get(':id')
     @SwaggerResponse({
-      operation: 'Find item',
-      notFound: 'Item does not exists.',
+      operation: `Find ${entity.name}`,
+      notFound: `${entity.name} does not exists.`,
       badRequest: 'Something went wrong.',
       params: ['id'],
     })
@@ -122,7 +122,7 @@ export function ControllerFactory<
     @ApiExcludeEndpoint()
     @Get(':id/full')
     @SwaggerResponse({
-      operation: 'Get Full Entity',
+      operation: `Get Full ${entity.name}`,
       notFound: 'Entity does not exists.',
       badRequest: 'Something went wrong.',
       params: ['id'],
@@ -142,8 +142,8 @@ export function ControllerFactory<
 
     @Post()
     @SwaggerResponse({
-      operation: 'Create item',
-      badRequest: 'Item already exists.',
+      operation: `Create ${entity.name}`,
+      badRequest: `${entity.name} already exists.`,
       body: createDto,
       response: updateDto,
     })
@@ -155,8 +155,8 @@ export function ControllerFactory<
     }
 
     @SwaggerResponse({
-      operation: 'Item update',
-      badRequest: 'Item does not exist.',
+      operation: `Update ${entity.name}`,
+      badRequest: `${entity.name} does not exist.`,
       params: ['id'],
       body: updateDto,
       response: updateDto,
@@ -173,8 +173,8 @@ export function ControllerFactory<
     }
 
     @SwaggerResponse({
-      operation: 'Item delete',
-      badRequest: 'Item does not exist.',
+      operation: `Delete ${entity.name}`,
+      badRequest: `${entity.name} does not exist.`,
       params: ['id'],
       response: updateDto,
     })

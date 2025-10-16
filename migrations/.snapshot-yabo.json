@@ -839,6 +839,15 @@
           "nullable": false,
           "mappedType": "json"
         },
+        "type_id": {
+          "name": "type_id",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        },
         "created_by_id": {
           "name": "created_by_id",
           "type": "int",
@@ -895,6 +904,19 @@
       ],
       "checks": [],
       "foreignKeys": {
+        "attribute_type_id_foreign": {
+          "constraintName": "attribute_type_id_foreign",
+          "columnNames": [
+            "type_id"
+          ],
+          "localTableName": "public.attribute",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.attribute_type",
+          "createForeignKeyConstraint": true,
+          "updateRule": "cascade"
+        },
         "attribute_created_by_id_foreign": {
           "constraintName": "attribute_created_by_id_foreign",
           "columnNames": [

@@ -16,6 +16,7 @@ import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { isArray } from 'class-validator';
 import { getMiddleware } from 'swagger-stats';
+import path from 'node:path';
 // import metadata from 'metadata';
 
 const logger = new Logger('App:Utils');
@@ -67,7 +68,18 @@ export const AppUtils = {
       .setLicense('MIT', 'https://opensource.org/licenses/MIT')
       .setDescription(SWAGGER_DESCRIPTION)
       .setVersion(SWAGGER_API_CURRENT_VERSION)
-      .addServer(`${configService.get('app').prefix}`, 'main')
+      .addServer(
+        `${path.join(configService.get('app').swaggerPrefix, configService.get('app').prefix)}`,
+        'main',
+      )
+      .addTag('Application')
+      .addTag('Application-type')
+      .addTag('Attribute')
+      .addTag('Attribute-type')
+      .addTag('Auth')
+      .addTag('Role')
+      .addTag('Schema')
+      .addTag('User')
       .build();
 
     // await SwaggerModule.loadPluginMetadata(metadata);

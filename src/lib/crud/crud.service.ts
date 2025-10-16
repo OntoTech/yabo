@@ -131,7 +131,7 @@ export abstract class BaseService<
   remove(id: number): Observable<Entity> {
     return this.findOne(id).pipe(
       switchMap((item) => {
-        return this.repository.softRemoveAndFlush(item).pipe(map(() => item));
+        return this.repository.removeAndFlush(item).pipe(map(() => item));
       }),
     );
   }

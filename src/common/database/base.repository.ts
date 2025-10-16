@@ -76,6 +76,12 @@ export class BaseRepository<T extends BaseEntity> extends EntityRepository<T> {
     return from(this.em.persistAndFlush(entity)).pipe(map(() => entity));
   }
 
+  removeAndFlush(entity: T): Observable<T> {
+    this.em.remove(entity);
+
+    return from(this.em.flush()).pipe(map(() => entity));
+  }
+
   findAndPaginate<Populate extends string = never>(
     where: FilterQuery<T>,
     options?: FindOptions<T, Populate>,
@@ -207,7 +213,7 @@ export class BaseRepository<T extends BaseEntity> extends EntityRepository<T> {
       alias,
     } = pageOptionsDto;
 
-    const selectedFields = [...new Set([...fields, 'id'])];
+    const selectedFields = [...new Set([...fields, '*'])];
 
     if (search) {
       qb.andWhere({

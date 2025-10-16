@@ -8,6 +8,7 @@ export const appConfigValidationSchema = {
     .required(),
   APP_PORT: Joi.number().port().required(),
   APP_PREFIX: Joi.string().required(),
+  APP_SWAGGER_PREFIX: Joi.string().required(),
   APP_LOG_LEVEL: Joi.string()
     .valid(...APP_LOGLEVELS)
     .required(),
@@ -20,6 +21,7 @@ export const appConfigValidationSchema = {
 export const app = registerAs('app', () => ({
   port: process.env.APP_PORT,
   prefix: process.env.APP_PREFIX,
+  swaggerPrefix: process.env.APP_SWAGGER_PREFIX,
   env: process.env.NODE_ENV,
   logLevel: process.env.APP_LOG_LEVEL,
   name: process.env.APP_NAME,
